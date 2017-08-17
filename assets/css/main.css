@@ -65,6 +65,7 @@ nav{
 	height: auto;
 	background-color: #EDE9E2;
 	padding: 40px;
+	border-radius: 20px;
 }
 #formulario{
 	position: absolute;
@@ -123,4 +124,20 @@ a.block{
 
 .page-footer{
 	background-color: #75726C;
+}
+
+/* ----NEW CSS---*/
+.buttonSpot{
+	position: relative;
+	bottom: 50px;
+}
+#start-button{
+	position: absolute;
+	left: 60px;
+	bottom: -310px;
+}
+.fixed-action-btn{
+	position: absolute;
+	right: 50px;
+	bottom: -310px;
 }
