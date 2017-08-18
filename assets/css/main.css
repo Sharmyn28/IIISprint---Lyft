@@ -141,3 +141,21 @@ a.block{
 	right: 50px;
 	bottom: -310px;
 }
+
+/* --- CREDITS---*/
+#imagen{
+	float: right;
+	margin-right: 5px;
+	margin-top: 0;
+}
+.titleP, .title{
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.title{
+	margin-left: 40%;
+	margin-top: 0;
+}
+.person{
+	margin-left: 15px;
+}
