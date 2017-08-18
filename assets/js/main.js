@@ -109,10 +109,7 @@ tutorial.onclick = function(){
 
 //=====================================================//
 /*------------- MAZE ONLY--------*/
-//var mazeSpot = document.getElementById('mazeSpot');
-var tablero = document.getElementById('tablero');
-var espacioT = document.getElementById('espacioT');
-//var play = document.getElementById('play');
+
 
 var map1 = ["/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/",
     "/* *           * * *             * *   */",
@@ -209,74 +206,13 @@ var map4= ["                                                                 ",
     " ** W****************    * ****                    *      ******* ",
     "                                                                  "];
 
-var map5= ["                                                                 ",
-    "                                W                     W          ",
-    "         *                                       *               ",
-    "   *                    *                            *           ",
-    "                                              *                  ",
-    "                                                  *        *     ",
-    "   *                         W            *         *            ",
-    "          *                                    *            *    ",
-    "                                      *                      *   ",
-    "                                           *                  I  ",
-    "         *                             *                       W ",
-    "  *            *       *                                         ",
-    "                                                                 ",
-    "                                                   *             ",
-    "    *               **W*************W********             *      ",
-    "          *         *                       *                    ",
-    "                    *   ******W**********   *                  * ",
-    "                    *   *               *   *       *            ",
-    "                    *   *   **********  *   W                    ",
-    "                    *   W   *        *  *   *                    ",
-    "         *          *   *   *        I  *   *                    ",
-    "   *                *   *   ******** *  *   *    W               ",
-    "                    *   *            *  W   *        *           ",
-    "                    *   **************  *   W               ***  ",
-    "          *         *                   *   *               **   ",
-    "     *              *********************   *        *           ",
-    "          *                                 *        *        W  ",
-    "  *                                         *        *        *  ",
-    "      *       ***W*********W****W****W*******        *******  *  ",
-    " o *                                                             ",
-    "                                                                 "] ;
 
-
-var map6=[  "                                                 ",
-    "                                                 ",
-    "                                                 ",
-    "       **o        ***                **W         ",
-    "                  ***                 *          ",
-    "                  *              *               ",
-    "                  *                     *        ",
-    "     *  *                     *   *     *        ",
-    "      * *                    **** *              ",
-    "      *                                 *        ",
-    "                                       **        ",
-    "                         **            **        ",
-    "                          *                      ",
-    "              ** *       ***                     ",
-    "              ***                                ",
-    "              **                  **             ",
-    "       **                         **             ",
-    "       **                         *              ",
-    "         *            **                         ",
-    "                     ***                         ",
-    "                    * **                         ",
-    "                                                 ",
-    "                                                 "];
-
-var mapas = [map1, map2, map3, map4, map5, map6];
-var mapa = mapas[6];
+var mapas = [map1, map2, map3, map4];
+var mapa = mapas[4];
 var mapita = [];
 var x;
 var y;
-var yinicial;
-var xinicial;
-var yfinal;
-var xfinal;
-var xtrans=[];
-var ytrans=[];
+
 
 //keycode de las teclas
 var teclas = {
@@ -286,7 +222,6 @@ var teclas = {
   RIGHT: 39
 };
 document.addEventListener("keydown", movimiento);
-
 
 function start(){
   for (var i in mapa){
@@ -316,30 +251,26 @@ function createSpot(){
 	createMaze(map1);
 }
 
-
 function createMaze(map){
 	xtrans = [];
 	ytrans = [];
-	yfinal = map1.length - 1;
-	xfinal = map1[0].length -1;
+	yfinal = map.length - 1;
+	xfinal = map[0].length -1;
 
 	var tablero = document.getElementById('tablero');
-    console.log('Current map', map1);//limpiar tablero
+    console.log('Current map', map);//limpiar tablero
     //rotar titulo
     var tabla = document.createElement('table');
     tabla.border = "0";
     //crea strings en lista
-    for (var i in map1) {
+    for (var i in map) {
         var fila = document.createElement('tr');
         //crea elementos en string
-        for (var j = 0; j < map1[i].length; j++) {
+        for (var j = 0; j < map[i].length; j++) {
             var celda = document.createElement('td');
-            if (map1[i][j]=="*") {
+            if (map[i][j]=="*") {
                 celda.setAttribute('class','wall');
-                // numeros de posiciones --> arriba, abajo, izq ,der
-            }else if(map1[i][j]==1|| map1[i][j]==2 || map1[i][j]==3||map1[i][j]==4){
-                	celda.setAttribute('class', 'nuevo');
-                	  
+                            	  
             }else if(map1[i][j]=="W"){
                 	celda.setAttribute('class', 'fin');	
             }else if(map1[i][j]=="I"){
@@ -348,8 +279,6 @@ function createMaze(map){
           				ytrans.push(i);
             }else if(map1[i][j]=="o"){
                 	celda.setAttribute('class', 'inicio');	
-                	y=i;
-                	x=j; 
             }else if(map1[i][j]==" "){
                 	celda.setAttribute('class', 'espacio');
             }else if(map1[i][j]=="/"){
@@ -358,99 +287,70 @@ function createMaze(map){
             }
             var p = document.createElement('p');
             celda.appendChild(p);
-            celda.setAttribute("id", i+","+j);
-            console.log(celda);
-            
+            celda.setAttribute("id", i+","+j);        
             fila.appendChild(celda);
         }
         tabla.appendChild(fila);
     }
     tablero.appendChild(tabla); 
     console.log(mapita);
-    
 }
 
 play.onclick=function(){
 	createSpot();
 }
 //start();
-
-
-var t;
-/*function mover(a,b,direccion){
-   
-    if( mapita[y+a][x+b]=="*" ){
-      clearTimeout(t);
-      return;
-    }
-    if ( mapita[y+a][x+b]=="W" ){
-        alert("Ganaste...!");
-      }
-    
-    if( y+a==0 || x+b==0 || y+a==yfinal || x+b==xfinal){
-      reiniciar();
-      clearTimeout(t);
-      return;
-  	}
-  	if(mapita[y+a][x+b]==' '){
-    	mapita[y][x]=' ';
-    	mapita[y+a][x+b]='o';
-  	}
-  	if(mapita[y+a][x+b]=='I'){
-    	mapita[y][x]=' ';
-	    if(y+a==ytrans[0]){
-	      y=ytrans[1];
-	      x=xtrans[1];
-	    } else{
-	      y=ytrans[0];
-	      x=xtrans[0];
-    	}
-    	mapita[y+a][x+b]='o';
-  	}
-  	createMaze(mapita);
-    t = setTimeout(function(){ mover(a, b, direccion) }, 25);
-
-}*/
-
 y = 7;
 x = 7;
-var newPosition;
-var newP;
-function movimiento(evento)
-{
-  switch(evento.keyCode)
-  {
-    case teclas.UP:
-      while(map1[(y -1)][x] != '*'){
-      	console.log(y+','+x);
-      	newP = (y-1)+','+x;
-      	console.log(newP);
-      	var pos = document.getElementById('newP');
-      	var k = document.getElementById('9,10');
-      	console.log(k);
-      	console.log(pos);
-      	pos.innerHTML = ' ';
-      	pos.setAttribute('class','adelante');
-      	pos.innerHTML = 'o';
-      	y--;
-      }
-      //mover(-1, 0);
-    break;
-    case teclas.DOWN:
-      //mover(1, 0);
-    break;
-    case teclas.LEFT:
-      //mover(0, -1);
-    break;
-    case teclas.RIGHT:
-      //mover(0, 1);
-    break;
-  }
+function mover(a,b,lado){
+  
+  while( true ){
+  		if ( x == 0 || y == 0 || y == map1.length - 1 || x == map1[0].length - 1){
+      		//alert('perdiste');
+      		sweetAlert("Oops..."+'\nPerdistee', "Vuelve a intentarlo!", "error");
+      		createSpot();
+      		break;
+      	}
+      	if (map1[ y + a][x + b] != '*') {
+	  	 	newP = (y+a)+','+ (x+b);
+	      	pos = document.getElementById(newP);
+	      	pos.setAttribute ('class', lado);
+			//pos.style.backgroundColor = "yellow";
+	      	y += a;
+	      	x += b;
+	     }
+	     else {
+	     	break;
+	     }
+	     if (map1[(y)][x] == 'W'){
+      		//alert('ganaste');
+      		swal({
+  				title: "Ganaste!",
+  				text: "Listo para el nuevo reto?",
+  				timer: 2000,
+  				showConfirmButton: false
+			});
+      		createSpot();
+      	}	  
+	} 
 }
 
-
-function reiniciar() { 
-  mapita[y][x]=' ';
-  mapita[yinicial][xinicial]='o';
-  createSpot();
+var newP;
+var pos;
+function movimiento(evento){
+	evento.preventDefault();
+  switch(evento.keyCode){
+    case teclas.UP:
+      	mover(-1, 0, 'adelante');
+    break;
+    case teclas.DOWN:
+  	   	mover(1, 0, 'atras');
+    break;
+    case teclas.LEFT:
+      	mover(0, -1, 'izquierda');
+    break;
+    case teclas.RIGHT:
+      	mover(0, 1, 'derecha');
+    break;
+  }
 }

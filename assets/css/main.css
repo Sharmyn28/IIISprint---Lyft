@@ -57,14 +57,14 @@ nav{
 
 .juego{
 	background-color: #00B2A9;
-	padding: 20px 0;
+	padding: 5px 0;
 }
 
 #tablero{
 	position: relative;
 	height: auto;
 	background-color: #EDE9E2;
-	padding: 20px;
+	padding: 10px;
 	border-radius: 20px;
 
 }
